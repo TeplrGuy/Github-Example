@@ -10,6 +10,7 @@ from agentic_stocks.features.loader import FeatureLoader
 from agentic_stocks.signals.compute import SignalComputer
 from agentic_stocks.models.blender import SignalBlender
 from agentic_stocks.utils.reasoning import ReasoningEngine
+from agentic_stocks.agents.learning_agent import LearningAgent
 
 
 @dataclass
@@ -25,6 +26,7 @@ class AgenticRecommender:
 		self.signal_computer = SignalComputer()
 		self.blender = SignalBlender()
 		self.reasoner = ReasoningEngine()
+		self.learning_agent = LearningAgent(self.blender)
 
 	def recommend(
 		self,
@@ -42,7 +44,12 @@ class AgenticRecommender:
 			reasons = self.reasoner.explain(symbol, components)
 			recommendations.append(Recommendation(symbol=symbol, blended_score=score, reasons=reasons))
 
+		# Agentic behavior: record recs for future learning and attempt weight updates
+		self.learning_agent.record_recommendations([r.symbol for r in recommendations])
+		self.learning_agent.learn_from_market(signals)
+
 		return {
 			"recommendations": [r.__dict__ for r in recommendations],
 			"universe_size": len(universe),
+			"weights": self.blender.learned_weights,
 		}

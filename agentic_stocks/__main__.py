@@ -31,8 +31,8 @@ def main() -> None:
 	if args.command == "recommend":
 		symbols: List[str] = [s.upper() for s in args.symbols]
 		result = agent.recommend(symbols=symbols or None, limit=args.limit, horizon_days=args.horizon_days)
-		for r in result["recommendations"]:
-			print(f"{r['rank']:>2d}. {r['symbol']:<6} score={r['blended_score']:.3f} reasons={r['reasons']}")
+		for idx, r in enumerate(result["recommendations"], start=1):
+			print(f"{idx:>2d}. {r['symbol']:<6} score={r['blended_score']:.3f} reasons={r['reasons']}")
 		return
 
 	print("No command provided. Use 'recommend' or 'api'.")

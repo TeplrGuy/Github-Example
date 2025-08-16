@@ -23,6 +23,7 @@ artifacts/
 /storage/*.duckdb
 /storage/*.parquet
 /storage/*.sqlite
+/storage/state.json
 /storage/state.json.backup
 
 # Logs

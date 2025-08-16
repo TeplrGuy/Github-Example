@@ -16,6 +16,8 @@ class RecommendRequest(BaseModel):
 	symbols: Optional[List[str]] = None
 	limit: int = 10
 	horizon_days: int = 5
+	scan_source: str = "sp500"
+	scan_limit: int = 200
 
 
 @app.get("/health")
@@ -25,4 +27,10 @@ def health() -> dict:
 
 @app.post("/recommend")
 def recommend(req: RecommendRequest) -> dict:
-	return agent.recommend(symbols=req.symbols, limit=req.limit, horizon_days=req.horizon_days)
+	return agent.recommend(
+		symbols=req.symbols,
+		limit=req.limit,
+		horizon_days=req.horizon_days,
+		scan_source=req.scan_source,
+		scan_limit=req.scan_limit,
+	)

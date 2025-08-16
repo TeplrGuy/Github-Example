@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv/
+venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Project artifacts
+artifacts/
+/data/
+/storage/*.db
+/storage/*.duckdb
+/storage/*.parquet
+/storage/*.sqlite
+/storage/state.json.backup
+
+# Logs
+logs/
+*.log
+
+# Cache
+.cache/
+.mypy_cache/
+.pytest_cache/
+
+# Node
+node_modules/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Build
+build/
+dist/
+*.egg-info/
